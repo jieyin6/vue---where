@@ -1,32 +1,28 @@
 <template>
   <div id="app">
-   <div class="wrapper">
-     <div class="box1"></div>
-     <div class="box2"></div>
-   </div>
+   <top-header></top-header>
+   <top-container></top-container>
+   <index-content></index-content>
+   <index-footer></index-footer>
   </div>
 </template>
 
 <script>
+import topHeader from './components/TopHeader'
+import topContainer from './components/Topcontainer'
+import indexContent from './components/index-content'
+import indexFooter from './components/index-footer'
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    topHeader,
+    topContainer,
+    indexContent,
+    indexFooter
+  }
 }
 </script>
 
-<style>
-*{
-  margin: 0;
-  padding: 0;
-}
-.wrapper div{
-  height: 1rem;
-}
-.box1{
-  width: 100px;
-  background-color: coral;
-}
-.box2{
-  width: 200px;
-  background-color: skyblue
-}
+<style lang="scss" scoped>
+
 </style>
