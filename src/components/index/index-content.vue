@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import listContent from '../base/list-container'
+import listContent from '../../base/list-container'
 export default {
   components: {
     listContent

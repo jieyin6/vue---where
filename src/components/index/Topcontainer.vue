@@ -1,29 +1,21 @@
 <template>
   <div class="top-container">
-    <swiper :options="swiperImgOptions" class="swiper">
-        <swiper-slide v-for="img in swiperImg" :key="img.id" class="swiper-slide">
+    <swiper :options="swiperImgOptions" class="swiper" v-if='swiperImg.length'>
+        <swiper-slide  v-for="img in swiperImg" :key="img.id" class="swiper-slide">
             <img :src="img.url" />
         </swiper-slide>
         <div class="swiper-pagination" slot="pagination"></div>
     </swiper>
     <swiper :options="navOptions" class="nav-swiper">
-        <swiper-slide>
+        <swiper-slide v-for="(item,index) in navList" :key="index">
             <div class="nav-container">
-                <div class="nav-item" v-for="(nav,index) in navFrist" :key="index">
+                <div class="nav-item" v-for="(nav, index) in item" :key="index">
                     <img :src="nav.url" />
                     <span>{{nav.desc}}</span>
                 </div>
             </div>
         </swiper-slide>
-        <swiper-slide>
-          <div class="nav-container">
-            <div class="nav-item" v-for="(nav,index) in navSecond" :key="index">
-                    <img :src="nav.url" />
-                    <span>{{nav.desc}}</span>
-            </div>
-          </div>
-        </swiper-slide>
-        <div class="swiper-pagination" slot="pagination"></div>
+       <div class="swiper-pagination" slot="pagination"></div>
     </swiper>
     <ul class="top-list">
         <li>
@@ -52,15 +44,29 @@ export default {
         pagination: {
           el: '.swiper-pagination'
         },
+        loop: true,
         autoplay: true
       },
       navFrist: [],
-      navSecond: [],
       navOptions: {
         pagination: {
           el: '.swiper-pagination'
         }
       }
+    }
+  },
+  computed: {
+    navList () {
+      let list = []
+      this.navFrist.forEach((item, index) => {
+        let page = Math.floor(index / 8)
+        // 让数组的值是一个数组
+        if (!list[page]) {
+          list[page] = []
+        }
+        list[page].push(item)
+      })
+      return list
     }
   },
   created () {
@@ -69,8 +75,17 @@ export default {
       console.log(res)
       if (res.status === 200) {
         _this.swiperImg = res.data.imgUrl
-        _this.navFrist = res.data.iconUrl.slice(0, 8)
-        _this.navSecond = res.data.iconUrl.slice(8)
+        /*  let list = res.data.iconUrl
+        let length = Math.ceil(res.data.iconUrl.length / 8)
+        for (let i = 0; i < length; i++) {
+          if (i === length - 1) {
+            _this.navList.push(list.slice(i * 8))
+          } else {
+            _this.navList.push(list.slice(i * 8, 8))
+          }
+        }
+        console.log(_this.navList)  */
+        _this.navFrist = res.data.iconUrl
       }
     })
   }

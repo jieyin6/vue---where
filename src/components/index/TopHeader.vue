@@ -8,10 +8,10 @@
         <span class="center-text">输入城市/景点/游玩主题</span>
     </div>
     <div class="right-container">
-        <div class="city-select">
+        <router-link class="city-select" to='/city'>
             <span class="city-name">北京</span>
             <i class="iconfont icon-jiantou"></i>
-        </div>
+        </router-link>
     </div>
   </div>
 </template>
