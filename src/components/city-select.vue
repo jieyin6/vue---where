@@ -1,8 +1,7 @@
 <template>
   <div class="city-select" >
-   
     <div class="header">
-      <i class="iconfont icon-fanhui"></i>
+      <i class="iconfont icon-fanhui" @click="back"></i>
       <span>城市选择</span>
     </div>
     <div class="city-container" ref='CitiesWrapper'>
@@ -10,7 +9,7 @@
       <div class="nav-header">
         <ul>
           <li class="active">境内</li>
-          <li>境外.港澳台</li> 
+          <li>境外.港澳台</li>
         </ul>
       </div>
       <div class="hot-cities">
@@ -33,9 +32,7 @@
         </div>
       </div>
     </div>
-    
-    
-  </div>
+ </div>
 </template>
 
 <script>
@@ -92,7 +89,7 @@ export default {
   },
   mounted () {
     this.$nextTick(() => {
-      this.scroll = new BScroll(this.$refs.CitiesWrapper,{
+      this.scroll = new BScroll(this.$refs.CitiesWrapper, {
         scrollY: true,
         click: true
       })
@@ -102,6 +99,9 @@ export default {
     getIndex (index) {
       console.log(index)
       this.scroll.scrollToElement(this.$refs.cities[index])
+    },
+    back () {
+      this.$router.back()
     }
   }
 }
@@ -212,7 +212,7 @@ export default {
        overflow: hidden;
        h2{
          font-size: 24px;
-         margin: 24px 30px; 
+         margin: 24px 30px;
        }
        ul{
          overflow: hidden;
@@ -249,6 +249,5 @@ export default {
        }
      }
   }
-  
 }
 </style>

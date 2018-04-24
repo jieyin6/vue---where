@@ -71,6 +71,7 @@ export default {
         line-height: 88px;
         .city-select{
             padding: 0 22px;
+            color: #fff;
             .city-name{
                 font-size: 25px;
             }
