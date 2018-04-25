@@ -2,17 +2,17 @@
   <div class="search-box">
       <div class="box-top">
         <div class="search-header">
-          <i class="iconfont icon-fanhui"></i>
+          <i class="iconfont icon-fanhui" @click="back"></i>
         </div>
         <div class="input-box">
-          <input type="text" v-model="city" @change.stop="search" />
+          <input type="text" v-model="city"  />
         </div>
       </div>
       <div class="city-list" ref="cityList">
         <div>
           <ul>
               <li v-for="(city, index) in rightCities" :key="index">{{city}}</li>
-              <li v-if="!rightCities.length && city !== '' ">暂无搜索结果</li>
+              <li v-show="rightCities.length === 0 && city !== ''">暂无搜索结果</li>
           </ul>
         </div>
       </div>
@@ -27,7 +27,7 @@ export default {
       city: '',
       cities: [],
       allCities: [],
-      rightCities: []
+      rightCities: [],
     }
   },
   mounted () {
@@ -38,9 +38,8 @@ export default {
       })
     })
   },
-  methods: {
-    search () {
-      let _this = this
+  created () {
+    let _this = this
       this.$http.get('/api').then(res => {
         if (res.status === 200) {
           _this.cities = res.data.cityArr
@@ -48,7 +47,8 @@ export default {
           _this.setData()
         }
       })
-    },
+  },
+  methods: {
     setData () {
       let obj = {}
       let arr = []
@@ -71,25 +71,33 @@ export default {
     },
     getData (city) {
       let cityArr = []
+      if(city == '') {
+        return
+      }
       this.allCities.forEach(item => {
         if (item.spell.indexOf(city) !== -1) {
           cityArr.push(item.name)
         } else if (item.name.indexOf(city) !== -1) {
           cityArr.push(item.name)
-        }
+        } 
       })
       this.rightCities = cityArr
+    },
+    back () {
+      this.$router.back()
     }
   },
   watch: {
     city (newVal) {
-      console.log(newVal)
-      if (newVal === '') {
-        this.rightCities = []
-        this.city = ''
-      }else{
-        this.getData(newVal)
-      }
+      clearTimeout(this.timer)
+      this.timer = setTimeout(() => {
+        if (newVal === '') {
+          this.rightCities = []
+          this.city = ''
+        }else{
+          this.getData(newVal)
+        }
+      },100)
     }
   }
 }
