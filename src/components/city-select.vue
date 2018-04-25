@@ -11,6 +11,9 @@
           <li class="active">境内</li>
           <li>境外.港澳台</li>
         </ul>
+        <div class="search-box" @click="toSearchBox">
+            <div>请输入城市名或拼音</div>
+        </div>
       </div>
       <div class="hot-cities">
           <h2>热门城市</h2>
@@ -102,6 +105,9 @@ export default {
     },
     back () {
       this.$router.back()
+    },
+    toSearchBox () {
+      this.$router.push('/search')
     }
   }
 }
@@ -155,6 +161,17 @@ export default {
                 color: #00bcd4;
                 background-color: #fff;
             }
+        }
+        .search-box{
+          margin-top: 15px;
+          div{
+              width: 100%;
+              height: 40px;
+              line-height: 40px;
+              text-align: center;
+              background-color: #fff;
+              color: #000;
+          }
         }
      }
      .hot-cities{

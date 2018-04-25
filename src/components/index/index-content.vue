@@ -2,7 +2,7 @@
   <div class="index-container">
       <list-content :leftTitle='leftTitle' class="list-content">
           <ul>
-              <li v-for="(item,index) in list" :key="index">
+              <li v-for="(item,index) in list" :key="index" @click="showDetail">
                 <div class="item-container">
                  <img :src="item.url" />
                  <div class="item-content">
@@ -58,6 +58,11 @@ export default {
         _this.weekendList = res.data.weekend
       }
     })
+  },
+  methods: {
+    showDetail () {
+      this.$router.push('/detail')
+    }
   }
 }
 </script>
