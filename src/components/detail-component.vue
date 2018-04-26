@@ -1,8 +1,8 @@
 <template>
   <div class="detail-component" ref="detail">
     <div>
-        <div class="detail-header">
-          <div class="icon-back" @click="back">
+        <div class="detail-header" v-if='!imgContainerShow'>
+          <div class="icon-back" @click="back" v-if='iconShow'>
               <i class="iconfont icon-fanhui"></i>
           </div>
           <img :src="newDetail.bannerImg" @click="imgShow=true" />
@@ -14,49 +14,51 @@
                 <li>一日游</li>
                 <li>热销组合</li>
             </ul>
-            <ul v-for="(group,index) in newDetail.categoryList" :key="index" class="tickets">
-                <li>
-                  <h2>{{group.title}}</h2>
-                  <ul v-if='group.children' v-for="(item,index) in group.children" :key="index" class="tickets-detail">
-                    <li @click="showSeller">
-                      <h3>{{item.title}}</h3>
-                      <ul ref="sellerDetail" class="seller-detail" v-for="(seller,index) in item.children" :key="index">
-                          <li>{{seller.title}}</li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-            </ul>
+            <menu-tree :list='newDetail.categoryList'></menu-tree>
         </div>
-        <div class="img-box" v-show="imgShow">
+        <div class="img-box" v-if="imgShow">
           <div class="img-header">
-            <i class="iconfont icon-fanhui" @click="imgShow = false"></i>
+            <i class="iconfont icon-fanhui" @click="imgShowEvent"></i>
             <span>景区图片</span>
           </div>
           <ul>
-            <li v-for="(img,index) in newDetail.gallaryImgs" :key="index" @click="imgContainerShow = true">
+            <li v-for="(img,index) in newDetail.gallaryImgs" :key="index" @click="imgContainerShowEvent">
                 <img :src="img" />
             </li>
          </ul>
-         <img-container :imgs='newDetail.gallaryImgs' v-show="imgContainerShow" @back='backEvent'></img-container>
+        </div>
+        <header-component :style="opacityStyle" :title="newDetail.sightName" v-if='headerShow'></header-component>
+        <div class="blank">aaaaaaaaaaaaaaa</div>
+      </div>
+      <div class="background" v-if="imgContainerShow" @click="imgContainerShowEvent">
+        <img-container :imgs='newDetail.gallaryImgs' ></img-container>
       </div>
   </div>
-</div>
 </template>
 
 <script>
-import Bscroll from 'better-scroll'
+// import Bscroll from 'better-scroll'
 import imgContainer from '../base/img-container'
+import menuTree from '../base/menu-tree'
+import headerComponent from '../base/header-component'
 export default {
   components: {
-    imgContainer
+    imgContainer,
+    menuTree,
+    headerComponent
   },
   data () {
     return {
       details: [],
       sellerShow: false,
       imgShow: false,
-      imgContainerShow: false
+      imgContainerShow: false,
+      headerShow: false,
+      iconShow: true,
+      opacityStyle: {
+          opacity: 0
+      },
+      top: 0
     }
   },
   computed: {
@@ -77,36 +79,66 @@ export default {
       }
     })
   },
-  mounted () {
+ /* mounted () {
     this.$nextTick(() => {
       this.scroll = new Bscroll(this.$refs.detail, {
         scrollY: true,
         click: true
       })
     })
+  },*/
+  activated () {
+    window.addEventListener('scroll', () => {
+      this.top = document.documentElement.scrollTop
+    })
+  },
+  deactivated () {
+    console.log(111)
+    window.removeEventListener('scroll')
   },
   methods: {
     back () {
       this.$router.back()
     },
-    showSeller () {
-      console.log(this.$refs.sellerDetail)
-      this.$refs.sellerDetail.style.visibility = ''
-    },
     backEvent () {
       this.imgContainerShow = false
+    },
+    imgShowEvent () {
+      this.imgShow = false
+    },
+    imgContainerShowEvent () {
+      this.imgContainerShow = !this.imgContainerShow
     }
+  },
+  watch: {
+    top (oldVal,newVal) {
+      if (newVal === 0) {
+        this.opacityStyle.opacity = 0
+        this.headerShow = false
+        this.iconShow = true
+      } else if (newVal < 41) {
+        if (newVal < oldVal) {
+          this.iconShow = false
+        } else {
+          this.iconShow = true 
+        }
+      } else if (newVal > 41 && newVal < 183) {
+        let num = this.opacityStyle.opacity
+        if (newVal < oldVal) {
+          this.opacityStyle.opacity = num >= 1 ? 1 : num + 0.01
+        } else {
+          this.opacityStyle.opacity = num <= 0 ? 0 : num - 0.01
+        }
+        this.headerShow = true
+      } 
+    } 
+      
   }
 }
 </script>
 
 <style lang='scss'>
 .detail-component{
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   div{
       .detail-header{
           width: 100%;
@@ -241,7 +273,21 @@ export default {
               }
           }
         }
-      }
+    }
+    .blank{
+        height: 600px;
+        line-height: 600px;
+        width: 100%;
+    }
+  }
+  .background{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 199;
+    background-color: #000;
   }
 }
 </style>

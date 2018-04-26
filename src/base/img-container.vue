@@ -1,14 +1,14 @@
 <template>
-  <div class="img-container" @click="back">
+  <div class="img-container">
     <div class="swiper">
     <swiper :options="imgOptions">
         <swiper-slide v-for="(img,index) in imgs" :key="index">
             <img :src="img" />
         </swiper-slide>
     </swiper>
+     <div class="swiper-pagination" slot="pagination"></div>
     </div>
-    <div class="background"></div>
- </div>
+  </div>
 </template>
 
 <script>
@@ -30,43 +30,37 @@ export default {
     return {
       imgOptions: {
         pagination: {
-          el: '.swiper-pagination'
+          el: '.swiper-pagination',
+          type: 'fraction'
         }
       }
-    }
-  },
-  methods: {
-    back () {
-      this.$emit('back')
     }
   }
 }
 </script>
 
 <style lang='scss'>
+@import 'swiper/dist/css/swiper.css';
 .img-container{
   .swiper{
-     position: absolute;
-     top: 25%;
-     left: 0;
-     z-index: 200;
-    .swiper-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+     .swiper-wrapper{
       .swiper-slide{
             img{
                 width: 100%;
-                
+                height: 500px;
             }
         }
     }
-  }
-  .background{
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 199;
-    background-color: #000;
+    .swiper-pagination{
+        height: 80px;
+        line-height: 80px;
+        bottom: 40px;
+        color: #fff;
+        font-size: 24px;
+    }
   }
 }
 </style>
