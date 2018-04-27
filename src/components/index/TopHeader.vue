@@ -70,7 +70,6 @@ export default {
         }
     }
     .right-container{
-        
         min-width: 112px;
         height: 88px;
         line-height: 88px;

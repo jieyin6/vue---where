@@ -110,7 +110,7 @@ export default {
     toSearchBox () {
       this.$router.push('/search')
     },
-    changeCity(name) {
+    changeCity (name) {
       this.setCity(name)
       this.back()
     },

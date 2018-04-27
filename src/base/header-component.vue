@@ -20,10 +20,9 @@ export default {
   },
   data () {
     return {
-      top: '',
       show: true,
       opacityStyle: {
-          opacity: 1
+        opacity: 0
       }
     }
   },
@@ -33,8 +32,15 @@ export default {
   },
   methods: {
     scrollEvent () {
-      this.top = document.documentElement.scrollTop
-      console.log(this.top)
+      let top = document.documentElement.scrollTop
+      console.log(top)
+      if (top > 50) {
+        this.show = false
+        let num = top / 138
+        this.opacityStyle.opacity = num > 1 ? 1 : num
+      } else {
+        this.show = true
+      }
     },
     back () {
       this.$router.back()

@@ -2,8 +2,8 @@
   <div class="detail-component" ref="detail">
     <div>
         <div class="detail-header" v-if='!imgContainerShow'>
-          <img :src="newDetail.bannerImg" @click="imgShow=true" />
-          <div class="sight-name">{{ newDetail.sightName}}</div>
+          <img :src="details.bannerImg" @click="imgShow=true" />
+          <div class="sight-name">{{ details.sightName}}</div>
         </div>
         <div class="tickets-container">
             <ul class="tickets-nav">
@@ -11,7 +11,7 @@
                 <li>一日游</li>
                 <li>热销组合</li>
             </ul>
-            <menu-tree :list='newDetail.categoryList'></menu-tree>
+            <menu-tree :list='details.categoryList'></menu-tree>
         </div>
         <div class="img-box" v-if="imgShow">
           <div class="img-header">
@@ -19,16 +19,16 @@
             <span>景区图片</span>
           </div>
           <ul>
-            <li v-for="(img,index) in newDetail.gallaryImgs" :key="index" @click="imgContainerShowEvent">
+            <li v-for="(img,index) in details.gallaryImgs" :key="index" @click="imgContainerShowEvent">
                 <img :src="img" />
             </li>
          </ul>
         </div>
-        <header-component :title="newDetail.sightName"></header-component>
+        <header-component :title="details.sightName"></header-component>
         <div class="blank">aaaaaaaaaaaaaaa</div>
       </div>
       <div class="background" v-if="imgContainerShow" @click="imgContainerShowEvent">
-        <img-container :imgs='newDetail.gallaryImgs' ></img-container>
+        <img-container :imgs='details.gallaryImgs' ></img-container>
       </div>
   </div>
 </template>
@@ -46,38 +46,20 @@ export default {
   },
   data () {
     return {
-      details: [],
+      details: {},
       sellerShow: false,
       imgShow: false,
-      imgContainerShow: false,
-    }
-  },
-  computed: {
-    newDetail () {
-      let obj = {}
-      this.details.forEach(item => {
-        obj = item
-      })
-      obj = obj.data
-      return obj
+      imgContainerShow: false
     }
   },
   created () {
     let _this = this
-    this.$http.get('/api').then(res => {
+    this.$http.get('/static/detail.json').then(res => {
       if (res.status === 200) {
-        _this.details = res.data.detail
+        _this.details = res.data.data
       }
     })
   },
- /* mounted () {
-    this.$nextTick(() => {
-      this.scroll = new Bscroll(this.$refs.detail, {
-        scrollY: true,
-        click: true
-      })
-    })
-  },*/
   methods: {
     backEvent () {
       this.imgContainerShow = false

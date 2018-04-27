@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name:'menuTree',
+  name: 'menuTree',
   props: {
     list: {
       type: Array,
@@ -40,10 +40,8 @@ export default {
         }
     }
     .child{
-      padding-left:20px; 
+      padding-left:20px;
     }
   }
 }
-
-
 </style>

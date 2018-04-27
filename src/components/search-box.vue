@@ -27,11 +27,11 @@ export default {
       city: '',
       cities: [],
       allCities: [],
-      rightCities: [],
+      rightCities: []
     }
   },
   mounted () {
-    this.$nextTick(()=> {
+    this.$nextTick(() => {
       this.scroll = new BScroll(this.$refs.cityList, {
         scrollY: true,
         click: true
@@ -40,13 +40,13 @@ export default {
   },
   created () {
     let _this = this
-      this.$http.get('/api').then(res => {
-        if (res.status === 200) {
-          _this.cities = res.data.cityArr
-          console.log(_this.cities)
-          _this.setData()
-        }
-      })
+    this.$http.get('/api').then(res => {
+      if (res.status === 200) {
+        _this.cities = res.data.cityArr
+        console.log(_this.cities)
+        _this.setData()
+      }
+    })
   },
   methods: {
     setData () {
@@ -71,7 +71,7 @@ export default {
     },
     getData (city) {
       let cityArr = []
-      if(city == '') {
+      if (city === '') {
         return
       }
       this.allCities.forEach(item => {
@@ -79,7 +79,7 @@ export default {
           cityArr.push(item.name)
         } else if (item.name.indexOf(city) !== -1) {
           cityArr.push(item.name)
-        } 
+        }
       })
       this.rightCities = cityArr
     },
@@ -94,10 +94,10 @@ export default {
         if (newVal === '') {
           this.rightCities = []
           this.city = ''
-        }else{
+        } else {
           this.getData(newVal)
         }
-      },100)
+      }, 100)
     }
   }
 }

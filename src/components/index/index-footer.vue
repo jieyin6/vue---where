@@ -3,37 +3,37 @@
      <ul class="product-container">
        <li>
           <i></i>
-          <span>机票</span> 
-        </li>
-        <li>
+          <span>机票</span>
+       </li>
+       <li>
           <i></i>
-          <span>酒店</span> 
-        </li>
-        <li>
+          <span>酒店</span>
+       </li>
+       <li>
           <i></i>
           <span>公寓</span>
-        </li> 
-        <li>
+       </li>
+       <li>
           <i></i>
-          <span>团购</span> 
-        </li>
-        <li>
+          <span>团购</span>
+       </li>
+       <li>
           <i></i>
-          <span>火车票</span>  
-        </li> 
-        <li>
+          <span>火车票</span>
+       </li>
+       <li>
           <i></i>
-          <span>景点</span> 
-        </li> 
-        <li>
+          <span>景点</span>
+       </li>
+       <li>
           <i></i>
-          <span>接送机</span> 
-        </li>
-        <li>
+          <span>接送机</span>
+       </li>
+       <li>
           <i></i>
-          <span>度假</span> 
-        </li>
-        <li class="toggle">更多</li>
+          <span>度假</span>
+       </li>
+       <li class="toggle">更多</li>
      </ul>
      <div class="link-container">
          <router-link to='/'>登录</router-link>
