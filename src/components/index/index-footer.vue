@@ -13,26 +13,6 @@
           <i></i>
           <span>公寓</span>
        </li>
-       <li>
-          <i></i>
-          <span>团购</span>
-       </li>
-       <li>
-          <i></i>
-          <span>火车票</span>
-       </li>
-       <li>
-          <i></i>
-          <span>景点</span>
-       </li>
-       <li>
-          <i></i>
-          <span>接送机</span>
-       </li>
-       <li>
-          <i></i>
-          <span>度假</span>
-       </li>
        <li class="toggle">更多</li>
      </ul>
      <div class="link-container">
@@ -61,22 +41,31 @@ export default {
 .index-footer{
     overflow: hidden;
     .product-container{
-        margin: 0 94px;
-        padding: 20px 20px 0 20px;
+        margin: 0 auto;
+        padding: 20px 20px 0 150px;
         position: relative;
         overflow: hidden;
         li{
             float: left;
-            width: 25%;
+            width: 80px;
             height: 62px;
             line-height: 62px;
             font-size: 12px;
             color: #9e9e9e;
-        }
-        .toggle{
-            position: absolute;
-            top: 97px;
-            right: 6px;
+            text-align: center;
+            &:last-child{
+                margin-left: 30px;
+                position: relative;
+                &::after{
+                    content: '';
+                    position: absolute;
+                    top: 20px;
+                    left: 0;
+                    width: 2px;
+                    height: 24px;
+                    background-color: #9e9e9e;
+                }
+            }
         }
     }
     .link-container{

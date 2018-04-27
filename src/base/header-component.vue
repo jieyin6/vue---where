@@ -30,6 +30,9 @@ export default {
     console.log(111)
     window.addEventListener('scroll', this.scrollEvent)
   },
+  deactivated () {
+    window.removeEventListener('scroll')
+  },
   methods: {
     scrollEvent () {
       let top = document.documentElement.scrollTop

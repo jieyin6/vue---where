@@ -111,6 +111,7 @@ export default {
       this.$router.push('/search')
     },
     changeCity (name) {
+      localStorage.setItem('city', name);
       this.setCity(name)
       this.back()
     },

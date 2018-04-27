@@ -1,6 +1,13 @@
+let defaultCity = '北京'
+try {
+  if (localStorage.city) {
+    defaultCity = localStorage.city
+  }
+} catch (e) {}
+
 const state = {
   cities: [],
-  city: '北京'
+  city: defaultCity
 }
 
 export default state
