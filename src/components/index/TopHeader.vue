@@ -9,7 +9,7 @@
     </div>
     <div class="right-container">
         <router-link class="city-select" to='/city'>
-            <span class="city-name">北京</span>
+            <span class="city-name">{{city}}</span>
             <i class="iconfont icon-jiantou"></i>
         </router-link>
     </div>
@@ -17,8 +17,13 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-
+  computed: {
+    ...mapGetters([
+      'city'
+    ])
+  }
 }
 </script>
 
@@ -65,12 +70,13 @@ export default {
         }
     }
     .right-container{
-        max-width: 188px;
-        min-width: 136px;
+        
+        min-width: 112px;
         height: 88px;
         line-height: 88px;
+        padding: 0 10px;
+        text-align: center;
         .city-select{
-            padding: 0 22px;
             color: #fff;
             .city-name{
                 font-size: 25px;

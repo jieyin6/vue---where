@@ -8,6 +8,7 @@ import './common/scss/reset.scss'
 import './common/scss/iconfont.css'
 import axios from 'axios'
 import '../mock/mock'
+import store from './store/index'
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
@@ -16,6 +17,7 @@ Vue.prototype.$http = axios
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

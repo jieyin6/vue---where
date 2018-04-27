@@ -18,7 +18,7 @@ export default new Router({
       component: citySelect
     },
     {
-      path: '/detail',
+      path: '/detail/:id',
       component: detailComponent
     },
     {

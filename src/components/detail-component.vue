@@ -2,9 +2,6 @@
   <div class="detail-component" ref="detail">
     <div>
         <div class="detail-header" v-if='!imgContainerShow'>
-          <div class="icon-back" @click="back" v-if='iconShow'>
-              <i class="iconfont icon-fanhui"></i>
-          </div>
           <img :src="newDetail.bannerImg" @click="imgShow=true" />
           <div class="sight-name">{{ newDetail.sightName}}</div>
         </div>
@@ -27,7 +24,7 @@
             </li>
          </ul>
         </div>
-        <header-component :style="opacityStyle" :title="newDetail.sightName" v-if='headerShow'></header-component>
+        <header-component :title="newDetail.sightName"></header-component>
         <div class="blank">aaaaaaaaaaaaaaa</div>
       </div>
       <div class="background" v-if="imgContainerShow" @click="imgContainerShowEvent">
@@ -53,12 +50,6 @@ export default {
       sellerShow: false,
       imgShow: false,
       imgContainerShow: false,
-      headerShow: false,
-      iconShow: true,
-      opacityStyle: {
-          opacity: 0
-      },
-      top: 0
     }
   },
   computed: {
@@ -87,19 +78,7 @@ export default {
       })
     })
   },*/
-  activated () {
-    window.addEventListener('scroll', () => {
-      this.top = document.documentElement.scrollTop
-    })
-  },
-  deactivated () {
-    console.log(111)
-    window.removeEventListener('scroll')
-  },
   methods: {
-    back () {
-      this.$router.back()
-    },
     backEvent () {
       this.imgContainerShow = false
     },
@@ -109,30 +88,6 @@ export default {
     imgContainerShowEvent () {
       this.imgContainerShow = !this.imgContainerShow
     }
-  },
-  watch: {
-    top (oldVal,newVal) {
-      if (newVal === 0) {
-        this.opacityStyle.opacity = 0
-        this.headerShow = false
-        this.iconShow = true
-      } else if (newVal < 41) {
-        if (newVal < oldVal) {
-          this.iconShow = false
-        } else {
-          this.iconShow = true 
-        }
-      } else if (newVal > 41 && newVal < 183) {
-        let num = this.opacityStyle.opacity
-        if (newVal < oldVal) {
-          this.opacityStyle.opacity = num >= 1 ? 1 : num + 0.01
-        } else {
-          this.opacityStyle.opacity = num <= 0 ? 0 : num - 0.01
-        }
-        this.headerShow = true
-      } 
-    } 
-      
   }
 }
 </script>
@@ -144,24 +99,6 @@ export default {
           width: 100%;
           height: 456px;
           position: relative;
-          .icon-back{
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            box-sizing: border-box;
-            width: 72px;
-            height: 72px;
-            line-height: 72px;
-            padding-left: 15px;
-            border-radius: 36px;
-            background-color: #000;
-            opacity: .5;
-            .iconfont{
-              font-size: 36px;
-              color: #fff;
-              font-weight: 800;
-            }
-          }
           img{
               width: 100%;
               height: 100%;
@@ -287,6 +224,9 @@ export default {
     right: 0;
     bottom: 0;
     z-index: 199;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     background-color: #000;
   }
 }

@@ -2,7 +2,7 @@
   <div class="index-container">
       <list-content :leftTitle='leftTitle' class="list-content">
           <ul>
-              <li v-for="(item,index) in list" :key="index" @click="showDetail">
+              <li v-for="(item,index) in list" :key="index" @click="showDetail(index)">
                 <div class="item-container">
                  <img :src="item.url" />
                  <div class="item-content">
@@ -60,8 +60,8 @@ export default {
     })
   },
   methods: {
-    showDetail () {
-      this.$router.push('/detail')
+    showDetail (index) {
+      this.$router.push(`/detail/${index}`)
     }
   }
 }

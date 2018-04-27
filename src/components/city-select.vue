@@ -18,7 +18,7 @@
       <div class="hot-cities">
           <h2>热门城市</h2>
           <ul>
-              <li v-for="city in hotCities" :key="city.id">{{city.name}}</li>
+              <li v-for="city in hotCities" :key="city.id" @click="changeCity(city.name)">{{city.name}}</li>
           </ul>
       </div>
       <div class="words-sort">
@@ -30,7 +30,7 @@
       <div class="words-city" v-for="(item,key) in newCities" :key="key" ref="cities">
           <h2>{{key}}</h2>
           <ul>
-            <li v-for="(city,index) in item" :key="index">{{city.name}}</li>
+            <li v-for="(city,index) in item" :key="index" @click="changeCity(city.name)">{{city.name}}</li>
           </ul>
         </div>
       </div>
@@ -41,6 +41,7 @@
 <script>
 // import cityContainer from '../base/city-container'
 import BScroll from 'better-scroll'
+import { mapMutations } from 'vuex'
 export default {
   components: {
     // cityContainer
@@ -108,7 +109,14 @@ export default {
     },
     toSearchBox () {
       this.$router.push('/search')
-    }
+    },
+    changeCity(name) {
+      this.setCity(name)
+      this.back()
+    },
+    ...mapMutations({
+      setCity: 'SET_CITY'
+    })
   }
 }
 </script>
@@ -193,6 +201,7 @@ export default {
                height: 100%;
                border-right: 1px solid #ddd;
                border-left: 1px solid #ddd;
+               pointer-events: none;
              }
              li{
                  float: left;
@@ -244,6 +253,7 @@ export default {
            height: 100%;
            border-left:1px solid #ddd;
            border-right: 1px solid #ddd;
+           pointer-events: none;
          }
          &::after{
            content: '';
@@ -252,6 +262,7 @@ export default {
            width: 25%;
            height: 100%;
            border-right: 1px solid #ddd;
+           pointer-events: none;
          }
          li{
            float: left;

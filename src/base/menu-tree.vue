@@ -1,11 +1,13 @@
 <template>
   <div class="menu-tree">
-      <ul v-for="(item, index) in list" :key="index">
-        <li>
+      <div v-for="(item, index) in list" :key="index">
+          <div class="menu-title">
             <h2>{{item.title}}</h2>
-            <menuTree v-if='item.children' :list='item.children' :class="child"></menuTree>
-        </li>
-      </ul>
+          </div>
+          <div class="child"  v-if='item.children'>
+            <menuTree :list='item.children'></menuTree>
+          </div>
+      </div>
   </div>
 </template>
 
@@ -25,10 +27,10 @@ export default {
 
 <style lang='scss'>
   .menu-tree{
-    ul{
+    div{
       margin-bottom: 20px;
       background-color: #fff;
-      li{
+      .menu-title{
         h2{
           padding: 0 20px;
           height: 88px;
@@ -37,20 +39,11 @@ export default {
           font-size: 32px;
         }
     }
+    .child{
+      padding-left:20px; 
+    }
   }
 }
-.child{
-  li{
-    margin-bottom: -1px;
-    padding: 24px 20px;
-    height: 96px;
-    line-height: 96px;
-    border-bottom: 1px solid #eee;
-    font-size: 30px;
-  }
-}
-            
-        
- 
+
 
 </style>

@@ -1,5 +1,6 @@
 const state = {
-  cities: []
+  cities: [],
+  city:'北京'
 }
 
 export default state

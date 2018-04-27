@@ -43,16 +43,10 @@ export default {
 @import 'swiper/dist/css/swiper.css';
 .img-container{
   .swiper{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-     .swiper-wrapper{
-      .swiper-slide{
-            img{
-                width: 100%;
-                height: 500px;
-            }
-        }
+    img{
+        width: 100%;
+        vertical-align: top;
+     }
     }
     .swiper-pagination{
         height: 80px;
@@ -62,5 +56,4 @@ export default {
         font-size: 24px;
     }
   }
-}
 </style>
